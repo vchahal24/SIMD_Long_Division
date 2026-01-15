@@ -4,7 +4,9 @@
 ## Overview
 This repository contains a **SIMD (Single Instruction, Multiple Data) long division hardware accelerator** implemented in **pure VHDL** and designed for FPGA deployment. The system performs **four independent unsigned integer divisions concurrently**, demonstrating hardware parallelism through replicated datapaths rather than sequential execution.
 
-The system integrates arithmetic datapaths, control logic, on-chip memory, and a seven-segment display interface into a complete, synthesizable FPGA design with simulation-based verification.
+The system integrates arithmetic datapaths, control logic, on-chip memory, and a seven-segment display interface into a complete, synthesizable FPGA design with simulation-based verification.\
+
+The same SIMD datapath was also wrapped in a custom AXI4-Lite IP for hardware/software co-design on a Zynq SoC, enabling processor-controlled operation and result retrieval via C.
 
 ## Highlights
 - 4-way parallel (SIMD) long division
@@ -76,6 +78,12 @@ A display controller multiplexes output digits and drives a seven-segment decode
 └── README.md
 `
 
+## Block Diagrams
+### Pure VHDL Implementation
+![Image of Pure VHDL Implementation](images/Pure%20VHDL/pure-vhdl-block-diagram.png)
+### AXI4-Lite Co-Design Implementation
+![Image of AXI4-Lite Co-Design Implementation](images/AXI4-Lite/axi4-lite-simd-wrapper.png)
+
 ## FPGA Implementation
 - Target: Xilinx FPGA (e.g., Nexys A7–class board)
 - Toolchain: Xilinx Vivado
@@ -95,3 +103,19 @@ A display controller multiplexes output digits and drives a seven-segment decode
 - Focus on **parallel throughput**, not pipelining
 - Division-by-zero is assumed not to occur
 - Display timing optimized for human readability
+
+## Testbench and Simulation Results
+### Testbench Simulation Waveform for Four-Lane SIMD Long Division
+![Image of Testbench Simulation Waveform for Four-Lane SIMD Long Division](images/Pure%20VHDL/testbench-simulation-waveform-SIMD.png)
+### SDK Terminal Results for SIMD Long Division Test
+![Image of SDK Terminal](images/AXI4-Lite/xilinx-sdk.png)
+![Image of SDK Terminal](images/AXI4-Lite/sdk-terminal-output.png)
+
+## Utilization and Timing Summaries
+### Pure VHDL Utilization Table + Timing Summary
+![Image of Pure VHDL Summary](images/Pure%20VHDL/utilization-table.png)
+![Image of Pure VHDL Summary](images/Pure%20VHDL/timing-summary.png)
+### AXI4-Lite Co-Design Utilization Table + Timing Summary
+![Image of AXI4-Lite Summary](images/AXI4-Lite/axi4-lite-utilization-summary.png)
+![Image of AXI4-Lite Summary](images/AXI4-Lite/axi4-lite-timing-summary.png)
+
